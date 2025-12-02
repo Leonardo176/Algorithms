@@ -1,10 +1,9 @@
 mod alt;
 mod drop;
-mod node;
 mod search;
 
 use super::node::*;
-use crate::trees::bst::node::{min, successor};
+use crate::trees::bstnode::BstNode;
 use std::{cell::RefCell, mem::swap, rc::Rc};
 
 pub struct Bst<T: Ord + Clone> {
@@ -64,7 +63,7 @@ impl<T: Ord + Clone> Bst<T> {
             if data.left.is_some() && data.right.is_some() {
                 drop(data);
 
-                let succ = successor(Some(target.clone())).unwrap();
+                let succ = Node::successor(Some(target.clone())).unwrap();
                 let mut data = target.borrow_mut();
                 let mut data_succ = succ.borrow_mut();
 
@@ -114,14 +113,14 @@ impl<T: Ord + Clone> Bst<T> {
     pub fn in_order(&self) -> Vec<T> {
         let mut arr = Vec::new();
 
-        let mut curr = min(self.root.clone());
+        let mut curr = Node::min(self.root.clone());
 
         while let Some(node) = curr.take() {
             let data = node.borrow();
             arr.push(data.key.clone());
             drop(data);
 
-            curr = successor(Some(node));
+            curr = Node::successor(Some(node));
         }
 
         arr

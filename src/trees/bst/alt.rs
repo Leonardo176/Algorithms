@@ -3,7 +3,7 @@ use std::{cell::RefCell, mem::swap, rc::Rc};
 use crate::{
     Bst,
     trees::{
-        bst::node::successor,
+        bstnode::BstNode,
         node::{Link, Node, link_new},
     },
 };
@@ -146,7 +146,7 @@ impl<T: Ord + Clone> Bst<T> {
                 // Troviamo il suo successore, che esiste sempre perche' ha il figlio destro
 
                 drop(data);
-                let succ = successor(Some(node.clone())).unwrap();
+                let succ = Node::successor(Some(node.clone())).unwrap();
                 let mut data = node.borrow_mut();
                 let mut data_succ = succ.borrow_mut();
 
