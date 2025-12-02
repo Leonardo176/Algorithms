@@ -1,4 +1,4 @@
-use super::bstnode::BstNode;
+use super::bstnode::{BstBaseNode, BstMMPSNode, BstNode, BstSearchNode};
 use std::cell::RefCell;
 use std::rc::{Rc, Weak};
 
@@ -23,7 +23,7 @@ impl<T: Ord + Clone> Node<T> {
     }
 }
 
-impl<T: Ord + Clone> BstNode<T> for Node<T> {
+impl<T: Ord + Clone> BstBaseNode<T> for Node<T> {
     fn key(&self) -> &T {
         &self.key
     }
@@ -40,6 +40,12 @@ impl<T: Ord + Clone> BstNode<T> for Node<T> {
         &self.parent
     }
 }
+
+impl<T: Ord + Clone> BstMMPSNode<T> for Node<T> {}
+
+impl<T: Ord + Clone> BstSearchNode<T> for Node<T> {}
+
+impl<T: Ord + Clone> BstNode<T> for Node<T> {}
 
 pub fn link_new<T: Ord + Clone>(key: T) -> Rc<RefCell<Node<T>>> {
     Rc::new(RefCell::new(Node::new(key)))

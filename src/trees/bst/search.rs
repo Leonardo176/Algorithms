@@ -1,24 +1,15 @@
-use crate::{Bst, trees::node::Link};
+use crate::{
+    Bst,
+    trees::{
+        bstnode::BstSearchNode,
+        node::{Link, Node},
+    },
+};
 
 // Algoritmi di ricerca e di visita
 impl<T: Ord + Clone> Bst<T> {
     pub fn find_node(&self, key: &T) -> Link<T> {
-        let mut curr = self.root.clone()?;
-
-        let mut data = curr.borrow();
-
-        while let Some(next) = if *key < data.key {
-            data.left.clone()
-        } else if *key > data.key {
-            data.right.clone()
-        } else {
-            return Some(curr.clone());
-        } {
-            drop(data);
-            curr = next;
-            data = curr.borrow();
-        }
-        None
+        Node::find(self.root.clone(), key)
     }
 
     pub fn search(&self, key: T) -> bool {

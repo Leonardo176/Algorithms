@@ -3,7 +3,7 @@ use std::{cell::RefCell, mem::swap, rc::Rc};
 use crate::{
     Bst,
     trees::{
-        bstnode::BstNode,
+        bstnode::BstMMPSNode,
         node::{Link, Node, link_new},
     },
 };

@@ -2,8 +2,8 @@ mod alt;
 mod drop;
 mod search;
 
+use super::bstnode::{BstMMPSNode, BstSearchNode};
 use super::node::*;
-use crate::trees::bstnode::BstNode;
 use std::{cell::RefCell, mem::swap, rc::Rc};
 
 pub struct Bst<T: Ord + Clone> {
@@ -111,18 +111,6 @@ impl<T: Ord + Clone> Bst<T> {
     }
 
     pub fn in_order(&self) -> Vec<T> {
-        let mut arr = Vec::new();
-
-        let mut curr = Node::min(self.root.clone());
-
-        while let Some(node) = curr.take() {
-            let data = node.borrow();
-            arr.push(data.key.clone());
-            drop(data);
-
-            curr = Node::successor(Some(node));
-        }
-
-        arr
+        Node::in_order(self.root.clone())
     }
 }
