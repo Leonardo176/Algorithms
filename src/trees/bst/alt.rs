@@ -3,8 +3,8 @@ use std::{cell::RefCell, mem::swap, rc::Rc};
 use crate::{
     Bst,
     trees::{
+        bst::node::{Link, Node},
         bstnode::BstMMPSNode,
-        node::{Link, Node, link_new},
     },
 };
 
@@ -49,7 +49,7 @@ impl<T: Ord + Clone> Bst<T> {
                 }
             }
         } else {
-            self.root = Some(link_new(key));
+            self.root = Some(Rc::new(RefCell::from(Node::new(key))));
         }
     }
 

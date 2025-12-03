@@ -17,3 +17,24 @@ type WeakLink<T> = Weak<RefCell<T>>;
  * we can use the same algorithms for searching keys on the tree.
  */
 pub trait BstNode<T: Ord + Clone>: BstBaseNode<T> + BstMMPSNode<T> + BstSearchNode<T> {}
+
+/**
+ * A macro to implement every trait on this module by
+ * just specifying the methods of the BstBaseNode trait
+ */
+#[macro_export]
+macro_rules! impl_bstnode {
+    ($type:ty, $($it:item),*) => {
+    	use crate::trees::bstnode::*;
+
+        impl<T: Ord + Clone> BstBaseNode<T> for $type {
+        	$(
+         	$it
+         	)*
+        }
+
+        impl<T: Ord + Clone> BstMMPSNode<T> for $type {}
+        impl<T: Ord + Clone> BstSearchNode<T> for $type {}
+        impl<T: Ord + Clone> BstNode<T> for $type {}
+    };
+}

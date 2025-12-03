@@ -1,5 +1,5 @@
 mod bst;
 mod bstnode;
-mod node;
+mod rbt;
 
 pub use bst::Bst;

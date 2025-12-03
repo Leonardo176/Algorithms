@@ -1,9 +1,10 @@
 mod alt;
 mod drop;
+mod node;
 mod search;
 
 use super::bstnode::{BstMMPSNode, BstSearchNode};
-use super::node::*;
+use node::*;
 use std::{cell::RefCell, mem::swap, rc::Rc};
 
 pub struct Bst<T: Ord + Clone> {
@@ -50,7 +51,7 @@ impl<T: Ord + Clone> Bst<T> {
                 panic!("Two equal keys on the same BST are not allowed!");
             }
         } else {
-            self.root = Some(link_new(key));
+            self.root = Some(Rc::new(RefCell::from(Node::new(key))));
         }
     }
 

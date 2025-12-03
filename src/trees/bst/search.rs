@@ -1,8 +1,8 @@
 use crate::{
     Bst,
     trees::{
+        bst::node::{Link, Node},
         bstnode::BstSearchNode,
-        node::{Link, Node},
     },
 };
 
